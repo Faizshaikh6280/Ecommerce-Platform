@@ -36,6 +36,7 @@ export const createCheckoutSession = async (req, res) => {
         userId: req.user._id,
         isActive: true,
       });
+
       if (coupon) {
         totalAmount -= Math.round(
           (totalAmount * coupon.discountPercentage) / 100
