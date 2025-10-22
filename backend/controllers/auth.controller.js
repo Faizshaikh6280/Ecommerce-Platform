@@ -51,7 +51,7 @@ export const signup = async (req, res) => {
 
     // authenticate
     const { accessToken, refreshToken } = generateTokens(user._id);
-    await storeRefreshToken(user._id, refreshToken);
+    // await storeRefreshToken(user._id, refreshToken);
 
     setCookies(res, accessToken, refreshToken);
 
@@ -74,7 +74,7 @@ export const login = async (req, res) => {
 
     if (user && (await user.comparePassword(password))) {
       const { accessToken, refreshToken } = generateTokens(user._id);
-      await storeRefreshToken(user._id, refreshToken);
+      // await storeRefreshToken(user._id, refreshToken);
       setCookies(res, accessToken, refreshToken);
 
       res.json({
@@ -122,11 +122,11 @@ export const refreshToken = async (req, res) => {
     }
 
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    const storedToken = await redis.get(`refresh_token:${decoded.userId}`);
+    // const storedToken = await redis.get(`refresh_token:${decoded.userId}`);
 
-    if (storedToken !== refreshToken) {
-      return res.status(401).json({ message: "Invalid refresh token" });
-    }
+    // if (storedToken !== refreshToken) {
+    //   return res.status(401).json({ message: "Invalid refresh token" });
+    // }
 
     const accessToken = jwt.sign(
       { userId: decoded.userId },
